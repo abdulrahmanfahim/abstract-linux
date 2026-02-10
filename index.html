@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abstract Linux</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -31,6 +29,24 @@
             overflow-x: hidden;
         }
 
+        /* Matrix Background Canvas */
+        #matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.15; /* Subtle effect */
+            pointer-events: none;
+        }
+
+        /* Content Wrappers to sit above Matrix */
+        nav, header, section, footer {
+            position: relative;
+            z-index: 10;
+        }
+
         /* Nedges Fade Masks */
         body::before,
         body::after {
@@ -38,7 +54,7 @@
             position: fixed;
             left: 0;
             width: 100%;
-            height: 10vh;
+            height: 15vh;
             z-index: 2000;
             pointer-events: none;
         }
@@ -69,6 +85,12 @@
             font-weight: 900;
             font-size: 1.2rem;
             letter-spacing: -1px;
+            line-height: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
         }
 
         nav a {
@@ -84,7 +106,7 @@
             opacity: 1;
         }
 
-        /* SlideXFade Animations */
+        /* Reveal Animations */
         .reveal {
             opacity: 0;
             transition: all 1s cubic-bezier(0.2, 1, 0.2, 1);
@@ -110,27 +132,17 @@
         }
 
         .hero h1 {
-            font-size: clamp(4rem, 18vw, 12rem);
+            font-size: clamp(3rem, 15vw, 10rem);
             font-weight: 900;
             letter-spacing: -0.05em;
-            line-height: 0.8;
+            line-height: 0.85;
             margin-bottom: 20px;
-
-            /* Add animation for font changes */
-            animation: fontChange 0.5s infinite alternate;
-        }
-
-        /* Animations for changing fonts */
-
-        .hero h1:hover {
-            /* On hover, the font will stay as it is */
-            animation: none;
         }
 
         .hero p {
-            font-size: 1rem;
+            font-size: 0.9rem;
             letter-spacing: 0.5em;
-            opacity: 0.3;
+            opacity: 0.4;
             text-transform: uppercase;
         }
 
@@ -156,7 +168,7 @@
             background: var(--glass);
             border: 1px solid var(--border);
             padding: 60px;
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(10px);
         }
 
         .full-width {
@@ -164,32 +176,34 @@
         }
 
         h2 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 900;
             margin-bottom: 20px;
-            letter-spacing: -2px;
+            letter-spacing: -1px;
         }
 
         p {
             font-size: 1.1rem;
             line-height: 1.6;
-            opacity: 0.6;
+            opacity: 0.7;
         }
 
         /* Buttons */
         .btn {
             background: var(--fg);
             color: var(--bg);
-            padding: 24px 80px;
+            padding: 20px 60px;
             text-decoration: none;
             font-weight: 900;
             display: inline-block;
             margin-top: 40px;
             transition: 0.3s;
+            font-size: 0.8rem;
         }
 
         .btn:hover {
-            transform: scale(1.05);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.1);
         }
 
         .checksum {
@@ -198,41 +212,43 @@
             font-size: 0.7rem;
             opacity: 0.3;
             word-break: break-all;
-            max-width: 400px;
+            max-width: 500px;
             margin-left: auto;
             margin-right: auto;
         }
 
         footer {
-            padding: 100px;
+            padding: 80px;
             text-align: center;
             font-size: 0.7rem;
-            opacity: 0.2;
+            opacity: 0.3;
             letter-spacing: 2px;
         }
 
         @media (max-width: 768px) {
-            .bento-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .full-width {
-                grid-column: span 1;
-            }
+            .bento-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+            nav { padding: 20px; flex-direction: column; gap: 15px; }
+            .nav-links { gap: 15px; }
         }
     </style>
-
 </head>
 
 <body>
+
+    <canvas id="matrix"></canvas>
+
     <nav>
         <div class="logo">ABSTRACT<br>LINUX</div>
-        <a href="#download">GET ISO</a>
+        <div class="nav-links">
+            <a href="#download">GET ISO</a>
+            <a href="https://abdulrahmanfahim.github.io">Back to Main Page</a>
+        </div>
     </nav>
 
     <header class="hero">
-        <p>A New Distribution</p>
-        <h1>ABSTRACT<br>LINUX</h1>
+        <p class="reveal">A New Distribution</p>
+        <h1 class="reveal">ABSTRACT<br>LINUX</h1>
     </header>
 
     <section class="section">
@@ -256,7 +272,7 @@
         <div class="container reveal reveal-up" style="text-align: center;">
             <h2>Acquire.</h2>
             <p>Download the 2026 Stable ISO build.</p>
-            <a href="#" download="Abstract-linux-2026.iso" class="btn">DOWNLOAD (CURRENTLY DISABLED FOR MAINTENANCE)</a>
+            <a href="#" class="btn">DOWNLOAD (DISABLED FOR MAINTENANCE)</a>
             <div class="checksum">
                 SHA256: b471fda7cbd5fbe8858c91000361e9508eb5196fc51b592106c911e8c1ef9cdf
             </div>
@@ -268,6 +284,50 @@
     </footer>
 
     <script>
+        // --- Matrix Rain Logic ---
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        let width, height, columns;
+        const fontSize = 16;
+        let drops = [];
+
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%\"'#&_(),.;:?!\\|{}<>[]^~";
+
+        function initMatrix() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            columns = Math.floor(width / fontSize);
+            drops = [];
+            for (let i = 0; i < columns; i++) {
+                drops[i] = Math.random() * -100; // Randomize start positions
+            }
+        }
+
+        function drawMatrix() {
+            // Fade the previous frame to create trails
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, width, height);
+
+            ctx.fillStyle = "#ffffff";
+            ctx.font = fontSize + "px monospace";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        window.addEventListener('resize', initMatrix);
+        initMatrix();
+        setInterval(drawMatrix, 33);
+
+        // --- Reveal Logic ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
@@ -275,9 +335,12 @@
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+        
+        // Manual activation for hero content immediately
+        setTimeout(() => {
+            document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('active'));
+        }, 100);
+
     </script>
-
 </body>
-
 </html>
-
