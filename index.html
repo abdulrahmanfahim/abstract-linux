@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abstract Linux</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #000000;
+            --fg: #ffffff;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            overflow-x: hidden;
+        }
+
+        /* Nedges Fade Masks */
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            left: 0;
+            width: 100%;
+            height: 10vh;
+            z-index: 2000;
+            pointer-events: none;
+        }
+
+        body::before {
+            top: 0;
+            background: linear-gradient(to bottom, var(--bg), transparent);
+        }
+
+        body::after {
+            bottom: 0;
+            background: linear-gradient(to top, var(--bg), transparent);
+        }
+
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 3000;
+        }
+
+        nav .logo {
+            font-weight: 900;
+            font-size: 1.2rem;
+            letter-spacing: -1px;
+        }
+
+        nav a {
+            color: var(--fg);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 400;
+            opacity: 0.6;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 1;
+        }
+
+        /* SlideXFade Animations */
+        .reveal {
+            opacity: 0;
+            transition: all 1s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .reveal-up {
+            transform: translateY(50px);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(4rem, 18vw, 12rem);
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            line-height: 0.8;
+            margin-bottom: 20px;
+
+            /* Add animation for font changes */
+            animation: fontChange 0.5s infinite alternate;
+        }
+
+        /* Animations for changing fonts */
+
+        .hero h1:hover {
+            /* On hover, the font will stay as it is */
+            animation: none;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            letter-spacing: 0.5em;
+            opacity: 0.3;
+            text-transform: uppercase;
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 60px;
+            backdrop-filter: blur(20px);
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.6;
+        }
+
+        /* Buttons */
+        .btn {
+            background: var(--fg);
+            color: var(--bg);
+            padding: 24px 80px;
+            text-decoration: none;
+            font-weight: 900;
+            display: inline-block;
+            margin-top: 40px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .checksum {
+            margin-top: 40px;
+            font-family: monospace;
+            font-size: 0.7rem;
+            opacity: 0.3;
+            word-break: break-all;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        footer {
+            padding: 100px;
+            text-align: center;
+            font-size: 0.7rem;
+            opacity: 0.2;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: span 1;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav>
+        <div class="logo">ABSTRACT<br>LINUX</div>
+        <a href="#download">GET ISO</a>
+    </nav>
+
+    <header class="hero">
+        <p>A New Distribution</p>
+        <h1>ABSTRACT<br>LINUX</h1>
+    </header>
+
+    <section class="section">
+        <div class="container bento-grid">
+            <div class="card full-width reveal reveal-up">
+                <h2>The Base.</h2>
+                <p>Built on Ubuntu Server. Abstract Linux is a stripped-back, high-performance environment designed for developers who require absolute stability without the bloat of standard desktop distributions.</p>
+            </div>
+            <div class="card reveal reveal-up">
+                <h2>Plasma.</h2>
+                <p>The beauty of KDE Plasma, refined. A workspace that moves as fast as you do.</p>
+            </div>
+            <div class="card reveal reveal-up">
+                <h2>Pure.</h2>
+                <p>No unnecessary packages. No background tracking. Just the kernel and your code.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="download" class="section">
+        <div class="container reveal reveal-up" style="text-align: center;">
+            <h2>Acquire.</h2>
+            <p>Download the 2026 Stable ISO build.</p>
+            <a href="https://archive.org/download/abstract-linux-2026/Abstract-Linux-2026.iso" download="Abstract-linux-2026.iso" class="btn">DOWNLOAD</a>
+            <div class="checksum">
+                SHA256: b471fda7cbd5fbe8858c91000361e9508eb5196fc51b592106c911e8c1ef9cdf
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 ABSTRACT LINUX // ABDULRAHMAN FAHIM</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
+
+</body>
+
+</html>
+
